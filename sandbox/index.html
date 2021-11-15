@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <script src="dist/axios.js"></script> -->
+    <script type="module">
+      ;(async function () {
+        function loadJs() {
+          var oHead = document.getElementsByTagName('head')[0] // 在head标签中创建创建script
+          var oScript = document.createElement('script')
+          oScript.type = 'text/javascript'
+          oScript.src = '/naxios.js'
+          oScript.defer = true
+          oHead.appendChild(oScript)
+        }
+        loadJs()
+        const pTime = (time) =>
+          new Promise((resolve) => {
+            setTimeout(resolve, time)
+          })
+        await pTime(500)
+        const res = await axios('/api/ccc', {
+          p: 2,
+        })
+        console.log(res)
+      })()
+    </script>
+  </body>
+</html>

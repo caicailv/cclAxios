@@ -1,12 +1,11 @@
 {
-  "name": "cclAxios",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "foo",
+  "source": "lib/index.ts",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "a": "node a",
-    "b": "node b",
-    "all": "npm-run-all -s a b"
+    "dev": "nodemon sandbox/service.js",
+    "build": "microbundle -i lib/index.ts -o dist/axios.js  --no-pkg-main --no-compress -f es --no-sourcemap "
   },
   "repository": {
     "type": "git",
@@ -19,7 +18,9 @@
     "url": "https://github.com/caicailv/cclAxios/issues"
   },
   "homepage": "https://github.com/caicailv/cclAxios#readme",
-  "dependencies": {},
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  },
   "devDependencies": {
     "microbundle": "^0.14.1",
     "npm-run-all": "^4.1.5"
