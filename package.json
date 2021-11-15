@@ -5,7 +5,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "nodemon sandbox/service.js",
-    "build": "microbundle -i lib/index.ts -o dist/axios.js  --no-pkg-main --no-compress -f es --no-sourcemap "
+    "build": "microbundle -i lib/index.ts -o dist/axios.js  --no-pkg-main --no-compress -f es --no-sourcemap",
+    "build-w": "microbundle -i lib/index.ts -o dist/axios.js  --no-pkg-main --no-compress -f es --no-sourcemap --watch"
+
   },
   "repository": {
     "type": "git",
