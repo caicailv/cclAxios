@@ -14,14 +14,13 @@ function pipeFileToResponse(res, file, type) {
   fs.createReadStream(path.join(__dirname, file)).pipe(res)
 }
 
-function handleApi(req,res) {
+function handleApi(req, res) {
   let status
   let result
   let data = ''
   req.on('data', function (chunk) {
     data += chunk
   })
-
   req.on('end', function () {
     try {
       status = 200
@@ -39,10 +38,12 @@ function handleApi(req,res) {
       }
     }
 
-    res.writeHead(status, {
-      'Content-Type': 'application/json',
-    })
-    res.end(JSON.stringify(result))
+    setTimeout(() => {
+      res.writeHead(status, {
+        'Content-Type': 'application/json',
+      })
+      res.end(JSON.stringify(result))
+    }, 0);
   })
 }
 
@@ -69,7 +70,9 @@ http://localhost:${port}/b.html
 http://localhost:${port}/c.html
 `
 
-server.listen(port, () => {})
+server.listen(port, () => {
+  console.log(cmdMsg)
+})
 server.on('error', (err) => {
   if (error.code === 'EADDRINUSE') {
     console.log(`当前端口 localhost:${port} 已被占用,无法启动`)

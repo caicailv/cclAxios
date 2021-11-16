@@ -5,9 +5,8 @@
     <title>Document</title>
   </head>
   <body>
-    <!-- <script src="dist/axios.js"></script> -->
     <script type="module">
-      import axios from '../dist/axios.js'
+      // import axios from '../dist/axios.js'
       ;(async function () {
         function loadJs() {
           var oHead = document.getElementsByTagName('head')[0] // 在head标签中创建创建script
@@ -17,15 +16,23 @@
           oScript.defer = true
           oHead.appendChild(oScript)
         }
-        // loadJs()
         const pTime = (time) =>
           new Promise((resolve) => {
             setTimeout(resolve, time)
           })
-        // await pTime(500)
-        const res = await axios('/api/ccc', {
-          p: 2,
+        loadJs()
+        await pTime(500)
+        const res = await axios({
+          url: '/api/ccc',
+          method: 'get',
+          data: {
+            gg: 'cc',
+          },
+          // params: {
+          //   bb: 'dd',
+          // },
         })
+
         console.log(res)
       })()
     </script>
