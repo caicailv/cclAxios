@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from './types/index'
 export default function axios({
   url,
-  data,
+  data = null,
   params,
   header,
   method = 'GET',
@@ -23,11 +23,16 @@ export default function axios({
     }
     if (timeout) request.timeout = timeout
     request.open(method.toLowerCase(), url, true)
-    
-    
-    
-    
-    request.setRequestHeader('Content-type', 'application/json')
-    // request.send(JSON.stringify(params))
+
+    if (header) {
+      for (let key in header) {
+        if (data === null && key.toLowerCase() === 'content-type') {
+          delete header[key]
+        } else {
+          request.setRequestHeader(key, header[key])
+        }
+      }
+    }
+    request.send(data)
   })
 }
