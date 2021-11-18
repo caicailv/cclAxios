@@ -1,13 +1,9 @@
 // import xhr from './xhr'
 import Axios from './core/axios'
 import { AxiosRequestConfig } from './types/index'
-import defaultConfig from './default'
-function getAxios(config: AxiosRequestConfig) {
-  // return function (url: string, config: AxiosRequestConfig) {
-  //   return xhr({ url, ...defaultConfig, ...config })
-  // }
-  return Axios.prototype.request.bind(config)
+function getAxios() {
+  return Axios.prototype.request
 }
-const axios = getAxios(defaultConfig)
+const axios = getAxios()
 // export default getAxios()
- 
+export default axios
