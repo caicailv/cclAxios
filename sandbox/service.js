@@ -43,7 +43,7 @@ function handleApi(req, res) {
         'Content-Type': 'application/json',
       })
       res.end(JSON.stringify(result))
-    }, 0);
+    }, 1000);
   })
 }
 
@@ -57,8 +57,8 @@ server = http.createServer((req, res) => {
   if (pathname === '/dist/axios.js')
     return pipeFileToResponse(res, '../dist/axios.js', 'text/javascript')
 
-  if (pathname === '/naxios.js')
-    return pipeFileToResponse(res, '../naxios.js', 'text/javascript')
+  if (pathname === '/axios.min.js')
+    return pipeFileToResponse(res, '../axios.min.js', 'text/javascript')
   if (pathname.includes('/api')) return handleApi(req, res)
   res.writeHead(404)
   res.end('<h1>404 Not Found</h1>')

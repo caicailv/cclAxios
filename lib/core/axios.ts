@@ -1,13 +1,18 @@
 import { AxiosPromise, AxiosRequestConfig } from '../types/index'
+import InterceptorManager from './InterceptorManager'
 import xhr from '../xhr'
+
 export default class Axios {
   defaultConfig: AxiosRequestConfig
-  interceptors: any
+  interceptors: {
+    request: InterceptorManager
+    response: InterceptorManager
+  }
   constructor(defaultConfig: AxiosRequestConfig) {
     this.defaultConfig = defaultConfig
     this.interceptors = {
-      request: [],
-      response: [],
+      request: new InterceptorManager(),
+      response: new InterceptorManager(),
     }
   }
   request(url: any, config?: any): AxiosPromise {
@@ -18,6 +23,13 @@ export default class Axios {
       config = url
     }
     config = { ...this.defaultConfig, ...config }
+
+    // 构造拦截器数组
+    let interceptors = []
+    // 取出请求拦截器
+    this.interceptors.request.forEach(()=>{
+      interceptors.push()
+    })
     return xhr(config)
   }
   get(url: string, config?: AxiosRequestConfig) {

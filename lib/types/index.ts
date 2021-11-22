@@ -17,3 +17,11 @@ export interface Axios {
   get(url: string, config?: AxiosRequestConfig): AxiosPromise
   post(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise
 }
+
+export interface Fulfied<T> {
+  val: T | Promise<T>
+}
+
+export interface Rejected {
+  error: any
+}

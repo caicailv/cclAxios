@@ -7,7 +7,6 @@
     "dev": "nodemon sandbox/service.js",
     "build": "microbundle -i lib/index.ts -o dist/axios.js  --no-pkg-main --no-compress -f es --no-sourcemap",
     "build-w": "microbundle -i lib/index.ts -o dist/axios.js  --no-pkg-main --no-compress -f es --no-sourcemap --watch"
-
   },
   "repository": {
     "type": "git",
@@ -21,6 +20,7 @@
   },
   "homepage": "https://github.com/caicailv/cclAxios#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "nodemon": "^2.0.15"
   },
   "devDependencies": {
