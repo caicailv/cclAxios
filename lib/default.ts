@@ -1,7 +1,6 @@
 import { AxiosRequestConfig } from './types/index'
 export default {
-  header: {
+  headers: {
     'Content-Type': 'appliction/json',
   },
-  
 }

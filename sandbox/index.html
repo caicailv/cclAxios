@@ -21,10 +21,14 @@
             setTimeout(resolve, time)
           })
         // loadJs()
+        for (const key in axios) {
+          console.log('key', key)
+        }
+        const ax = axios.create({
+          headers: { ttt: '222' },
+        })
         await pTime(500)
-        const res = await axios('/api', {
-          header: 'ccc',
-        }).catch((err) => {
+        const res = await ax.get('/api', {}).catch((err) => {
           console.log('err', err)
         })
 

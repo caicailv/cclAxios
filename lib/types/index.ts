@@ -3,7 +3,8 @@ export interface AxiosRequestConfig {
   method?: string
   data?: any
   params?: any
-  header?: any
+  headers?: any
+  baseURL?: string
   timeout?: number
 }
 

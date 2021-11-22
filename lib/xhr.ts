@@ -3,9 +3,10 @@ export default function axios({
   url,
   data = null,
   params,
-  header,
+  headers,
   method = 'GET',
   timeout,
+  baseURL = '',
 }: AxiosRequestConfig) {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
@@ -22,14 +23,14 @@ export default function axios({
       resolve(response)
     }
     if (timeout) request.timeout = timeout
-    request.open(method.toLowerCase(), url, true)
+    request.open(method.toLowerCase(), baseURL + url, true)
 
-    if (header) {
-      for (let key in header) {
+    if (headers) {
+      for (let key in headers) {
         if (data === null && key.toLowerCase() === 'content-type') {
-          delete header[key]
+          delete headers[key]
         } else {
-          request.setRequestHeader(key, header[key])
+          request.setRequestHeader(key, headers[key])
         }
       }
     }

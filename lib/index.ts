@@ -1,9 +1,16 @@
-// import xhr from './xhr'
 import Axios from './core/axios'
+import defaultConfig from './default'
 import { AxiosRequestConfig } from './types/index'
-function getAxios() {
-  return Axios.prototype.request
+function getAxios(config: AxiosRequestConfig) {
+  const context = new Axios(config)
+  //此处如不使用bind,则在request混入 this.defaultConfig的时候,会因为丢失this而报错
+  const axios = Axios.prototype.request.bind(context)
+  for (const key in context) {
+    axios[key] = context[key]
+  }
+  axios.create = (config: AxiosRequestConfig) =>
+    getAxios({ ...defaultConfig, ...config })
+  return axios
 }
-const axios = getAxios()
-// export default getAxios()
+const axios = getAxios(defaultConfig)
 export default axios
