@@ -1,13 +1,15 @@
-import { AxiosRequestConfig } from './types/index'
-export default function axios({
-  url,
-  data = null,
-  params,
-  headers,
-  method = 'GET',
-  timeout,
-  baseURL = '',
-}: AxiosRequestConfig) {
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/index'
+export default function axios(config: AxiosRequestConfig): AxiosPromise {
+  const {
+    url,
+    data = null,
+    params,
+    headers,
+    method = 'GET',
+    timeout,
+    baseURL = '',
+  } = config
+
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
     request.ontimeout = () => {
@@ -15,10 +17,20 @@ export default function axios({
     }
     request.onreadystatechange = () => {
       if (!request || request.readyState !== 4) return
+      let data = ''
+      try {
+        data = JSON.parse(request.response)
+      } catch (error) {
+        data = request.response
+      }
+
       const response = {
-        data: JSON.parse(request.response),
+        data,
         status: request.status,
         statusText: request.statusText,
+        headers,
+        config,
+        request,
       }
       resolve(response)
     }

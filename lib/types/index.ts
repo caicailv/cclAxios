@@ -8,9 +8,18 @@ export interface AxiosRequestConfig {
   timeout?: number
 }
 
+export interface AxiosResponse<T = any> {
+  data: T
+  status: number
+  statusText: string
+  headers: any
+  config: AxiosRequestConfig
+  request: any
+}
 export type Method = 'GET' | 'POST'
 
-export interface AxiosPromise<T = unknown> extends Promise<T> {}
+// export interface AxiosPromise<T = unknown> extends Promise<T> {}
+export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {}
 
 export interface Axios {
   request(config: AxiosRequestConfig): AxiosPromise
@@ -19,9 +28,9 @@ export interface Axios {
 }
 
 export interface Fulfied<T> {
-  val: T | Promise<T>
+  (val: T): T | Promise<T>
 }
 
 export interface Rejected {
-  error: any
+  (reason: any): any
 }
