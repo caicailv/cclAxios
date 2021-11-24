@@ -1,8 +1,4 @@
-import {
-  AxiosRequestConfig,
-  Fulfied,
-  Rejected,
-} from '../types/index'
+import { AxiosRequestConfig, Fulfied, Rejected } from '../types/index'
 import InterceptorManager from './InterceptorManager'
 import xhr from '../xhr'
 

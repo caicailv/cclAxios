@@ -6,6 +6,7 @@ export interface AxiosRequestConfig {
   headers?: any
   baseURL?: string
   timeout?: number
+  cancelToken?: any
 }
 
 export interface AxiosResponse<T = any> {
@@ -33,4 +34,10 @@ export interface Fulfied<T> {
 
 export interface Rejected {
   (reason: any): any
+}
+export interface Canceler {
+  (message?: string): void
+}
+export interface CancelExecutor {
+  (cancel: Canceler): void
 }

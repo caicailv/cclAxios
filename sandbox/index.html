@@ -23,29 +23,45 @@
           })
         // loadJs()
         // await pTime(500)
-        axios.interceptors.request.use(async function config1(config) {
-          console.log('config1', config)
-          await pTime(1500)
-          return config
-        })
-        axios.interceptors.request.use(async function config2(config) {
-          console.log('config2', config)
-          await pTime(1500)
-          return config
-        })
-        axios.interceptors.response.use(
-          (res) => {
-            console.log('response', res)
-            return res
-          },
-          (err) => {
-            console.error('nnerr', err)
-          }
-        )
-        const res = await axios.get('/apb', {}).catch((err) => {
-          console.log('catch err', err)
-        })
-        console.log(res)
+        // const source = CancelToken.source()
+        // setTimeout(() => {
+        //   source.cancel('Operation canceled by the user.')
+        // }, 20)
+
+        // axios.interceptors.request.use(async function config1(config) {
+        //   console.log('config1', config)
+        //   await pTime(1500)
+        //   return config
+        // })
+        // axios.interceptors.request.use(async function config2(config) {
+        //   console.log('config2', config)
+        //   await pTime(1500)
+        //   return config
+        // })
+        // axios.interceptors.response.use(
+        //   (res) => {
+        //     console.log('response', res)
+        //     return res
+        //   },
+        //   (err) => {
+        //     console.error('nnerr', err)
+        //   }
+        // )
+        const CancelToken = axios.CancelToken
+        let cancel
+        axios
+          .get('/apb', {
+            cancelToken: new CancelToken((callback) => {
+              cancel = callback
+            }),
+          })
+          .then((res) => {
+            // console.log(res)
+          })
+          .catch((err) => {
+            console.log('catch err', err)
+          })
+        // cancel('ccc')
       })()
     </script>
   </body>

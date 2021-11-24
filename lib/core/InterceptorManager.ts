@@ -15,5 +15,4 @@ export default class InterceptorManager<T> {
   forEach(fn: (handler: Interceptor<T>) => void) {
     this.handlers.forEach(fn)
   }
-  // eject()
 }

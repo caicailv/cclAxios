@@ -8,6 +8,7 @@ export default function axios(config: AxiosRequestConfig): AxiosPromise {
     method = 'GET',
     timeout,
     baseURL = '',
+    cancelToken,
   } = config
 
   return new Promise((resolve, reject) => {
@@ -47,5 +48,6 @@ export default function axios(config: AxiosRequestConfig): AxiosPromise {
       }
     }
     request.send(data)
+    // 直接取消请求
   })
 }
