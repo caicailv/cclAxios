@@ -1,6 +1,6 @@
 import Axios from './core/axios'
 import defaultConfig from './default'
-import { AxiosRequestConfig } from './types/index'
+import { AxiosRequestConfig } from './types'
 import CancelToken from './cancel/CancelToken'
 function getAxios(config: AxiosRequestConfig) {
   const context = new Axios(config)

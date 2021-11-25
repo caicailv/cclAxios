@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, Fulfied, Rejected } from '../types/index'
+import { AxiosRequestConfig, Fulfied, Rejected } from '../types'
 import InterceptorManager from './InterceptorManager'
 import xhr from '../xhr'
 

@@ -1,4 +1,6 @@
-import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types/index'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types'
+// import CancelToken from './cancel/CancelToken'
+import Cancel from './cancel/Cancel'
 export default function axios(config: AxiosRequestConfig): AxiosPromise {
   const {
     url,
@@ -9,9 +11,16 @@ export default function axios(config: AxiosRequestConfig): AxiosPromise {
     timeout,
     baseURL = '',
     cancelToken,
+    withCredentials,
   } = config
-
+  console.log('configh', config)
   return new Promise((resolve, reject) => {
+    if (cancelToken) {
+      cancelToken.subscribe((cancel: Cancel) => {
+        reject(cancel.message || 'cancel_request')
+      })
+    }
+
     const request = new XMLHttpRequest()
     request.ontimeout = () => {
       reject('请求超时')
@@ -47,7 +56,16 @@ export default function axios(config: AxiosRequestConfig): AxiosPromise {
         }
       }
     }
+    if (withCredentials) {
+      request.withCredentials = true
+    }
     request.send(data)
-    // 直接取消请求
+    if (cancelToken) {
+      // 直接取消请求
+      cancelToken.subscribe((cancel: Cancel) => {
+        request.abort()
+        reject(cancel.message || 'cancel_request')
+      })
+    }
   })
 }

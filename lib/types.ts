@@ -6,7 +6,18 @@ export interface AxiosRequestConfig {
   headers?: any
   baseURL?: string
   timeout?: number
-  cancelToken?: any
+  cancelToken?: CancelToken
+  withCredentials?: boolean
+  
+}
+export interface Cancel {
+  message?: string
+}
+
+export interface CancelToken {
+  promise: Promise<Cancel>
+  reason?: Cancel
+  subscribe: (fn: any) => void
 }
 
 export interface AxiosResponse<T = any> {

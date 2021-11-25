@@ -1,20 +1,20 @@
 import { CancelExecutor } from '../types'
-interface ResolvePromise {
-  (reason?: string): void
-}
+import Cancel from './Cancel'
+
 export default class CancelToken {
-  promise: Promise<string>
-  reason?: string
+  reason?: Cancel
   listener: any[] | undefined
   constructor(executor: CancelExecutor) {
-    let promiseResolve: ResolvePromise
-    new Promise((resolve) => {
-      promiseResolve = resolve
-    }).then((res) => {})
-    executor((message) => {
-      if (this.reason) return
-      this.reason = message
-      promiseResolve(message)
+    executor((msg) => {
+      setTimeout(() => {
+        if (this.reason) return
+        this.reason = new Cancel(msg)
+        // 执行所有监听器
+        if (!this.listener) return
+        while (this.listener.length) {
+          this.listener.shift()(this.reason)
+        }
+      }, 0)
     })
   }
   // 触发取消信号
@@ -27,14 +27,12 @@ export default class CancelToken {
   }
 
   // 如果请求已经完成,则删除所有监听
-  unsubscribe() {}
+  unsubscribe() {
+    delete this.listener
+    delete this.reason
+  }
 }
 let b
 let t = new CancelToken((c) => {
   b = c
 })
-
-b('ggg')
-// t.subscribe(()=>{
-
-// })
